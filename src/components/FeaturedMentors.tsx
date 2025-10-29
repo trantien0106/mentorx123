@@ -1,50 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Star, CheckCircle, ArrowRight } from "lucide-react";
-import mentor1 from "@/assets/mentor-1.jpg";
-import mentor2 from "@/assets/mentor-2.jpg";
-import mentor3 from "@/assets/mentor-3.jpg";
-
-const mentors = [
-  {
-    id: 1,
-    name: "Sarah Johnson",
-    role: "Senior Product Manager",
-    company: "Tech Corp",
-    image: mentor1,
-    rating: 4.9,
-    reviews: 127,
-    price: 75,
-    skills: ["Product Strategy", "Agile", "Leadership"],
-    verified: true
-  },
-  {
-    id: 2,
-    name: "Michael Chen",
-    role: "Lead Software Engineer",
-    company: "Innovation Labs",
-    image: mentor2,
-    rating: 4.8,
-    reviews: 93,
-    price: 85,
-    skills: ["React", "System Design", "Mentoring"],
-    verified: true
-  },
-  {
-    id: 3,
-    name: "Emma Martinez",
-    role: "Creative Director",
-    company: "Design Studio",
-    image: mentor3,
-    rating: 5.0,
-    reviews: 156,
-    price: 90,
-    skills: ["UX Design", "Branding", "Creative Strategy"],
-    verified: true
-  }
-];
+import { allMentors } from "@/data/mentors";
 
 const FeaturedMentors = () => {
+  const featuredMentors = allMentors.slice(0, 6);
+
   return (
     <section className="py-24">
       <div className="container mx-auto px-4">
@@ -56,7 +17,7 @@ const FeaturedMentors = () => {
         </div>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {mentors.map((mentor) => (
+          {featuredMentors.map((mentor) => (
             <div 
               key={mentor.id}
               className="group bg-card rounded-2xl overflow-hidden shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-strong)] transition-all duration-300 hover:-translate-y-2"
@@ -91,7 +52,7 @@ const FeaturedMentors = () => {
                 </div>
                 
                 <div className="flex flex-wrap gap-2">
-                  {mentor.skills.map((skill, idx) => (
+                  {mentor.skills.slice(0, 3).map((skill, idx) => (
                     <Badge key={idx} variant="secondary" className="text-xs">
                       {skill}
                     </Badge>
@@ -118,7 +79,11 @@ const FeaturedMentors = () => {
         </div>
         
         <div className="text-center mt-12">
-          <Button variant="outline" size="lg">
+          <Button 
+            variant="outline" 
+            size="lg"
+            onClick={() => window.location.href = '/mentors'}
+          >
             View All Mentors
           </Button>
         </div>

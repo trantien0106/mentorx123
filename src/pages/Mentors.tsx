@@ -6,90 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Star, CheckCircle, Search, SlidersHorizontal } from "lucide-react";
-import mentor1 from "@/assets/mentor-1.jpg";
-import mentor2 from "@/assets/mentor-2.jpg";
-import mentor3 from "@/assets/mentor-3.jpg";
-
-const allMentors = [
-  {
-    id: 1,
-    name: "Sarah Johnson",
-    role: "Senior Product Manager",
-    company: "Tech Corp",
-    image: mentor1,
-    rating: 4.9,
-    reviews: 127,
-    price: 75,
-    skills: ["Product Strategy", "Agile", "Leadership"],
-    verified: true,
-    category: "product"
-  },
-  {
-    id: 2,
-    name: "Michael Chen",
-    role: "Lead Software Engineer",
-    company: "Innovation Labs",
-    image: mentor2,
-    rating: 4.8,
-    reviews: 93,
-    price: 85,
-    skills: ["React", "System Design", "Mentoring"],
-    verified: true,
-    category: "engineering"
-  },
-  {
-    id: 3,
-    name: "Emma Martinez",
-    role: "Creative Director",
-    company: "Design Studio",
-    image: mentor3,
-    rating: 5.0,
-    reviews: 156,
-    price: 90,
-    skills: ["UX Design", "Branding", "Creative Strategy"],
-    verified: true,
-    category: "design"
-  },
-  {
-    id: 4,
-    name: "David Lee",
-    role: "Marketing Director",
-    company: "Growth Agency",
-    image: mentor1,
-    rating: 4.7,
-    reviews: 84,
-    price: 70,
-    skills: ["Digital Marketing", "SEO", "Content Strategy"],
-    verified: true,
-    category: "marketing"
-  },
-  {
-    id: 5,
-    name: "Lisa Anderson",
-    role: "Data Science Lead",
-    company: "Analytics Co",
-    image: mentor3,
-    rating: 4.9,
-    reviews: 112,
-    price: 95,
-    skills: ["Machine Learning", "Python", "Data Visualization"],
-    verified: true,
-    category: "data"
-  },
-  {
-    id: 6,
-    name: "James Wilson",
-    role: "Senior UX Researcher",
-    company: "User First",
-    image: mentor2,
-    rating: 4.8,
-    reviews: 67,
-    price: 80,
-    skills: ["User Research", "Usability Testing", "Design Thinking"],
-    verified: true,
-    category: "design"
-  }
-];
+import { allMentors } from "@/data/mentors";
 
 const Mentors = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -120,7 +37,7 @@ const Mentors = () => {
             <div className="mb-12">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">Find Your Perfect Mentor</h1>
               <p className="text-xl text-muted-foreground">
-                Browse through {allMentors.length}+ verified professionals ready to guide your journey
+                Browse through 1000+ verified professionals ready to guide your journey
               </p>
             </div>
 
@@ -147,6 +64,13 @@ const Mentors = () => {
                     <SelectItem value="design">Design</SelectItem>
                     <SelectItem value="marketing">Marketing</SelectItem>
                     <SelectItem value="data">Data Science</SelectItem>
+                    <SelectItem value="business">Business</SelectItem>
+                    <SelectItem value="security">Security</SelectItem>
+                    <SelectItem value="finance">Finance</SelectItem>
+                    <SelectItem value="entrepreneurship">Entrepreneurship</SelectItem>
+                    <SelectItem value="hr">HR</SelectItem>
+                    <SelectItem value="content">Content</SelectItem>
+                    <SelectItem value="sales">Sales</SelectItem>
                   </SelectContent>
                 </Select>
 
