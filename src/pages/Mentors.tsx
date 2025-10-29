@@ -176,6 +176,7 @@ const Mentors = () => {
                 <div
                   key={mentor.id}
                   className="group bg-card rounded-2xl overflow-hidden shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-strong)] transition-all duration-300 hover:-translate-y-2 cursor-pointer"
+                  onClick={() => window.location.href = `/mentor/${mentor.id}`}
                 >
                   <div className="relative h-48 overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20">
                     <img
@@ -219,7 +220,14 @@ const Mentors = () => {
                         <span className="text-xl font-bold text-primary">${mentor.price}</span>
                         <span className="text-muted-foreground text-xs">/hour</span>
                       </div>
-                      <Button size="sm" variant="default">
+                      <Button 
+                        size="sm" 
+                        variant="default"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.location.href = `/mentor/${mentor.id}`;
+                        }}
+                      >
                         View Profile
                       </Button>
                     </div>

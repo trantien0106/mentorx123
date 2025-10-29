@@ -103,7 +103,11 @@ const FeaturedMentors = () => {
                     <span className="text-2xl font-bold text-primary">${mentor.price}</span>
                     <span className="text-muted-foreground text-sm">/hour</span>
                   </div>
-                  <Button variant="default" className="gap-2 group/btn">
+                  <Button 
+                    variant="default" 
+                    className="gap-2 group/btn"
+                    onClick={() => window.location.href = `/mentor/${mentor.id}`}
+                  >
                     View Profile
                     <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                   </Button>
