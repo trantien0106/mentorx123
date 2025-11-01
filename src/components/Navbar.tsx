@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, X, LogOut } from "lucide-react";
+import { Menu, X, LogOut, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -38,7 +38,7 @@ const Navbar = () => {
             <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-xl">M</span>
             </div>
-            <span className="text-xl font-bold">MentorConnect</span>
+            <span className="text-xl font-bold">MentorX</span>
           </Link>
           
           <div className="hidden md:flex items-center gap-8">
@@ -51,6 +51,12 @@ const Navbar = () => {
             <Link to="/forum" className="text-foreground hover:text-primary transition">
               Diễn đàn
             </Link>
+            {user && (
+              <Link to="/messages" className="text-foreground hover:text-primary transition flex items-center gap-2">
+                <MessageCircle className="w-4 h-4" />
+                Tin nhắn
+              </Link>
+            )}
           </div>
           
           <div className="hidden md:flex items-center gap-4">
@@ -107,6 +113,16 @@ const Navbar = () => {
             >
               Diễn đàn
             </Link>
+            {user && (
+              <Link
+                to="/messages"
+                className="block text-foreground hover:text-primary transition py-2 flex items-center gap-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <MessageCircle className="w-4 h-4" />
+                Tin nhắn
+              </Link>
+            )}
             <div className="flex flex-col gap-2 pt-4 border-t">
               {user ? (
                 <>

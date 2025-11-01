@@ -13,12 +13,12 @@ const CTASection = () => {
               <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-6">
                 <Sparkles className="w-8 h-8" />
               </div>
-              <h3 className="text-3xl font-bold mb-4">Looking for Guidance?</h3>
+              <h3 className="text-3xl font-bold mb-4">Đang tìm kiếm sự định hướng?</h3>
               <p className="text-primary-foreground/90 mb-6 text-lg">
-                Connect with expert mentors who can help accelerate your career growth and achieve your goals faster.
+                Kết nối với các mentor chuyên nghiệp để tăng tốc phát triển sự nghiệp và đạt được mục tiêu nhanh hơn.
               </p>
               <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                Find Your Mentor
+                Tìm Mentor của bạn
               </Button>
             </div>
             
@@ -26,12 +26,12 @@ const CTASection = () => {
               <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-6">
                 <Users className="w-8 h-8" />
               </div>
-              <h3 className="text-3xl font-bold mb-4">Share Your Expertise</h3>
+              <h3 className="text-3xl font-bold mb-4">Chia sẻ kinh nghiệm</h3>
               <p className="text-accent-foreground/90 mb-6 text-lg">
-                Join our community of mentors and make a meaningful impact by guiding the next generation of professionals.
+                Tham gia cộng đồng mentor và tạo ra ảnh hưởng ý nghĩa bằng cách định hướng thế hệ chuyên gia tương lai.
               </p>
               <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                Become a Mentor
+                Trở thành Mentor
               </Button>
             </div>
           </div>

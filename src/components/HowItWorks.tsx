@@ -3,23 +3,23 @@ import { Search, Calendar, MessageCircle, Star } from "lucide-react";
 const steps = [
   {
     icon: Search,
-    title: "Find Your Mentor",
-    description: "Browse through our curated list of expert mentors across various industries and skills"
+    title: "Tìm Mentor của bạn",
+    description: "Duyệt qua danh sách các mentor chuyên nghiệp trong nhiều lĩnh vực và kỹ năng khác nhau"
   },
   {
     icon: Calendar,
-    title: "Book a Session",
-    description: "Choose a time that works for you and schedule your personalized mentorship session"
+    title: "Đặt lịch học",
+    description: "Chọn thời gian phù hợp và đặt lịch học cá nhân hóa với mentor"
   },
   {
     icon: MessageCircle,
-    title: "Connect & Learn",
-    description: "Meet with your mentor through video calls and get personalized guidance"
+    title: "Kết nối & Học hỏi",
+    description: "Gặp gỡ mentor qua video call và nhận được hướng dẫn cá nhân hóa"
   },
   {
     icon: Star,
-    title: "Achieve Your Goals",
-    description: "Track your progress and celebrate milestones as you grow in your career"
+    title: "Đạt được mục tiêu",
+    description: "Theo dõi tiến trình và kỷ niệm những cột mốc quan trọng trong sự nghiệp"
   }
 ];
 
@@ -28,9 +28,9 @@ const HowItWorks = () => {
     <section className="py-24 bg-secondary/50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl md:text-5xl font-bold">How It Works</h2>
+          <h2 className="text-4xl md:text-5xl font-bold">Cách Hoạt Động</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Start your mentorship journey in four simple steps
+            Bắt đầu hành trình mentorship của bạn chỉ trong 4 bước đơn giản
           </p>
         </div>
         
