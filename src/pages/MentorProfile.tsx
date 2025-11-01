@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { BookingDialog } from "@/components/BookingDialog";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -30,6 +31,7 @@ const MentorProfile = () => {
   const { id } = useParams();
   const mentor = mentorDataMap[id as string] || allMentors[0];
   const [isFavorited, setIsFavorited] = useState(false);
+  const [bookingDialogOpen, setBookingDialogOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
@@ -219,9 +221,14 @@ const MentorProfile = () => {
                       <p className="text-muted-foreground">per hour session</p>
                     </div>
                     
-                    <Button variant="hero" size="lg" className="w-full gap-2">
+                    <Button 
+                      variant="hero" 
+                      size="lg" 
+                      className="w-full gap-2"
+                      onClick={() => setBookingDialogOpen(true)}
+                    >
                       <Calendar className="w-5 h-5" />
-                      Book a Session
+                      Đặt lịch
                     </Button>
                     
                     <Button variant="outline" size="lg" className="w-full gap-2">
@@ -255,6 +262,14 @@ const MentorProfile = () => {
         </div>
       </main>
       <Footer />
+      
+      <BookingDialog
+        open={bookingDialogOpen}
+        onOpenChange={setBookingDialogOpen}
+        mentorId={mentor.id.toString()}
+        mentorName={mentor.name}
+        basePrice={mentor.price}
+      />
     </div>
   );
 };

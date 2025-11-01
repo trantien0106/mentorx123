@@ -1,76 +1,133 @@
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Menu, X, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Menu, User } from "lucide-react";
-import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    toast.success("Đã đăng xuất");
+    navigate("/");
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border shadow-[var(--shadow-soft)]">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <div className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2">
             <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-xl">M</span>
             </div>
             <span className="text-xl font-bold">MentorConnect</span>
-          </div>
+          </Link>
           
           <div className="hidden md:flex items-center gap-8">
-            <a href="/mentors" className="text-foreground hover:text-primary transition-colors font-medium">
-              Find Mentors
+            <Link to="/mentors" className="text-foreground hover:text-primary transition">
+              Tìm Mentor
+            </Link>
+            <a href="/#how-it-works" className="text-foreground hover:text-primary transition">
+              Cách hoạt động
             </a>
-            <a href="#how-it-works" className="text-foreground hover:text-primary transition-colors font-medium">
-              How It Works
-            </a>
-            <a href="#" className="text-foreground hover:text-primary transition-colors font-medium">
-              Forum
-            </a>
-            <a href="#" className="text-foreground hover:text-primary transition-colors font-medium">
-              Pricing
-            </a>
+            <Link to="/forum" className="text-foreground hover:text-primary transition">
+              Diễn đàn
+            </Link>
           </div>
           
-          <div className="hidden md:flex items-center gap-3">
-            <Button variant="ghost">
-              Sign In
-            </Button>
-            <Button variant="default" className="gap-2">
-              <User className="w-4 h-4" />
-              Get Started
-            </Button>
+          <div className="hidden md:flex items-center gap-4">
+            {user ? (
+              <>
+                <span className="text-sm text-muted-foreground">
+                  {user.email}
+                </span>
+                <Button variant="ghost" size="sm" onClick={handleSignOut}>
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Đăng xuất
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button variant="ghost" asChild>
+                  <Link to="/auth">Đăng nhập</Link>
+                </Button>
+                <Button asChild>
+                  <Link to="/auth">Bắt đầu</Link>
+                </Button>
+              </>
+            )}
           </div>
           
           <button 
             className="md:hidden p-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            <Menu className="w-6 h-6" />
+            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
         
         {isMenuOpen && (
-          <div className="md:hidden py-4 space-y-3 border-t">
-            <a href="#" className="block text-foreground hover:text-primary transition-colors font-medium py-2">
-              Find Mentors
+          <div className="md:hidden absolute top-16 left-0 right-0 bg-background border-b shadow-lg p-4 space-y-4">
+            <Link
+              to="/mentors"
+              className="block text-foreground hover:text-primary transition py-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Tìm Mentor
+            </Link>
+            <a
+              href="/#how-it-works"
+              className="block text-foreground hover:text-primary transition py-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Cách hoạt động
             </a>
-            <a href="#" className="block text-foreground hover:text-primary transition-colors font-medium py-2">
-              How It Works
-            </a>
-            <a href="#" className="block text-foreground hover:text-primary transition-colors font-medium py-2">
-              Forum
-            </a>
-            <a href="#" className="block text-foreground hover:text-primary transition-colors font-medium py-2">
-              Pricing
-            </a>
-            <div className="pt-3 space-y-2">
-              <Button variant="ghost" className="w-full">
-                Sign In
-              </Button>
-              <Button variant="default" className="w-full gap-2">
-                <User className="w-4 h-4" />
-                Get Started
-              </Button>
+            <Link
+              to="/forum"
+              className="block text-foreground hover:text-primary transition py-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Diễn đàn
+            </Link>
+            <div className="flex flex-col gap-2 pt-4 border-t">
+              {user ? (
+                <>
+                  <span className="text-sm text-muted-foreground py-2">
+                    {user.email}
+                  </span>
+                  <Button variant="ghost" className="w-full" onClick={handleSignOut}>
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Đăng xuất
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button variant="ghost" className="w-full" asChild>
+                    <Link to="/auth">Đăng nhập</Link>
+                  </Button>
+                  <Button className="w-full" asChild>
+                    <Link to="/auth">Bắt đầu</Link>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         )}

@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      bookings: {
+        Row: {
+          booking_date: string
+          created_at: string
+          id: string
+          mentor_id: string
+          package_type: string
+          quiz_responses: Json
+          session_dates: string[] | null
+          status: string
+          total_price: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          booking_date?: string
+          created_at?: string
+          id?: string
+          mentor_id: string
+          package_type: string
+          quiz_responses: Json
+          session_dates?: string[] | null
+          status?: string
+          total_price: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          booking_date?: string
+          created_at?: string
+          id?: string
+          mentor_id?: string
+          package_type?: string
+          quiz_responses?: Json
+          session_dates?: string[] | null
+          status?: string
+          total_price?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       comments: {
         Row: {
           content: string
