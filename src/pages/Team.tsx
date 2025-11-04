@@ -14,11 +14,6 @@ const teamMembers: TeamMember[] = [
     description: "Giám đốc điều hành - Định hướng tầm nhìn và chiến lược phát triển"
   },
   {
-    name: "Đoàn Kiến Quốc",
-    role: "CTO",
-    description: "Giám đốc công nghệ - Lãnh đạo phát triển kỹ thuật và công nghệ"
-  },
-  {
     name: "Vũ Quang Minh",
     role: "DevOps",
     description: "Chuyên gia DevOps - Quản lý hạ tầng và vận hành hệ thống"
@@ -95,8 +90,8 @@ const Team = () => {
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-3xl font-bold mb-6 text-foreground">Sứ Mệnh Của Chúng Tôi</h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Tại MentorX, chúng tôi tin rằng mọi người đều xứng đáng có cơ hội học hỏi và phát triển từ những người có kinh nghiệm. 
-            Đội ngũ của chúng tôi cam kết xây dựng một nền tảng kết nối mentor và mentee một cách hiệu quả, 
+            Tại MentorX, chúng tôi tin rằng mọi người đều xứng đáng có cơ hội học hỏi và phát triển từ những người có kinh nghiệm.
+            Đội ngũ của chúng tôi cam kết xây dựng một nền tảng kết nối mentor và mentee một cách hiệu quả,
             giúp mọi người đạt được mục tiêu cá nhân và nghề nghiệp của họ.
           </p>
         </div>

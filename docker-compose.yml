@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  react-app:
+    build: .
+    container_name: mentor-x-fe
+    ports:
+      - "127.0.0.1:10000:10000"
+    restart: unless-stopped
