@@ -11,6 +11,8 @@ import Auth from "./pages/Auth";
 import Forum from "./pages/Forum";
 import Messages from "./pages/Messages";
 import Team from "./pages/Team";
+import Feedback from "./pages/Feedback";
+import ChatBot from "./components/ChatBot";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,9 +32,11 @@ const App = () => (
           <Route path="/forum" element={<Forum />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/team" element={<Team />} />
+          <Route path="/feedback" element={<Feedback />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <ChatBot />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

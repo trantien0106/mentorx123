@@ -48,14 +48,14 @@ export const BookingDialog = ({
   basePrice,
 }: BookingDialogProps) => {
   const [step, setStep] = useState(1);
-  const [packageType, setPackageType] = useState<"1_session" | "3_sessions" | "5_sessions">("1_session");
+  const [packageType, setPackageType] = useState<"1_session" | "5_sessions" | "10_sessions">("1_session");
   const [quizAnswers, setQuizAnswers] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
 
   const packages = {
     "1_session": { sessions: 1, discount: 0, price: basePrice },
-    "3_sessions": { sessions: 3, discount: 5, price: basePrice * 3 * 0.95 },
     "5_sessions": { sessions: 5, discount: 10, price: basePrice * 5 * 0.90 },
+    "10_sessions": { sessions: 10, discount: 20, price: basePrice * 10 * 0.80 },
   };
 
   const selectedPackage = packages[packageType];
