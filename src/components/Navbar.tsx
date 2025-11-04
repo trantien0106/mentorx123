@@ -51,6 +51,9 @@ const Navbar = () => {
             <Link to="/forum" className="text-foreground hover:text-primary transition">
               Diễn đàn
             </Link>
+            <Link to="/team" className="text-foreground hover:text-primary transition">
+              Đội ngũ
+            </Link>
             {user && (
               <Link to="/messages" className="text-foreground hover:text-primary transition flex items-center gap-2">
                 <MessageCircle className="w-4 h-4" />
@@ -112,6 +115,13 @@ const Navbar = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               Diễn đàn
+            </Link>
+            <Link
+              to="/team"
+              className="block text-foreground hover:text-primary transition py-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Đội ngũ
             </Link>
             {user && (
               <Link

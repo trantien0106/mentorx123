@@ -10,6 +10,7 @@ import MentorProfile from "./pages/MentorProfile";
 import Auth from "./pages/Auth";
 import Forum from "./pages/Forum";
 import Messages from "./pages/Messages";
+import Team from "./pages/Team";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/forum" element={<Forum />} />
           <Route path="/messages" element={<Messages />} />
+          <Route path="/team" element={<Team />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
