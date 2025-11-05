@@ -151,6 +151,72 @@ export type Database = {
         }
         Relationships: []
       }
+      mentor_applications: {
+        Row: {
+          bio: string
+          certificate_urls: string[] | null
+          certifications: string | null
+          created_at: string
+          cv_url: string | null
+          education: string
+          experience_years: number
+          expertise: string
+          full_name: string
+          id: string
+          id_document_url: string | null
+          linkedin_url: string | null
+          phone: string
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          bio: string
+          certificate_urls?: string[] | null
+          certifications?: string | null
+          created_at?: string
+          cv_url?: string | null
+          education: string
+          experience_years: number
+          expertise: string
+          full_name: string
+          id?: string
+          id_document_url?: string | null
+          linkedin_url?: string | null
+          phone: string
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          bio?: string
+          certificate_urls?: string[] | null
+          certifications?: string | null
+          created_at?: string
+          cv_url?: string | null
+          education?: string
+          experience_years?: number
+          expertise?: string
+          full_name?: string
+          id?: string
+          id_document_url?: string | null
+          linkedin_url?: string | null
+          phone?: string
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       messages: {
         Row: {
           content: string
