@@ -20,21 +20,40 @@ const Auth = () => {
     // Check if user is already logged in
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
-        navigate("/");
+        checkQuizCompletion(session.user.id);
       }
     });
 
     // Listen for auth changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session) {
-        navigate("/");
+        // Check if it's a new signup
+        if (event === 'SIGNED_IN') {
+          await checkQuizCompletion(session.user.id);
+        }
       }
     });
 
     return () => subscription.unsubscribe();
   }, [navigate]);
+
+  const checkQuizCompletion = async (userId: string) => {
+    const { data } = await supabase
+      .from("mentee_quiz_responses")
+      .select("id")
+      .eq("user_id", userId)
+      .maybeSingle();
+
+    if (data) {
+      // Quiz already completed, go to home
+      navigate("/");
+    } else {
+      // New user, redirect to quiz
+      navigate("/mentee-quiz");
+    }
+  };
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,7 +86,7 @@ const Auth = () => {
     setLoading(true);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
@@ -75,7 +94,11 @@ const Auth = () => {
       if (error) throw error;
 
       toast.success("Đăng nhập thành công!");
-      navigate("/");
+      
+      // Check quiz completion and redirect accordingly
+      if (data.user) {
+        await checkQuizCompletion(data.user.id);
+      }
     } catch (error: any) {
       toast.error(error.message || "Đăng nhập thất bại");
     } finally {

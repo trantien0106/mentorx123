@@ -12,6 +12,7 @@ import Forum from "./pages/Forum";
 import Messages from "./pages/Messages";
 import Team from "./pages/Team";
 import Feedback from "./pages/Feedback";
+import MenteeQuiz from "./pages/MenteeQuiz";
 import BecomeMentor from "./pages/BecomeMentor";
 import ChatBot from "./components/ChatBot";
 import NotFound from "./pages/NotFound";
@@ -35,6 +36,7 @@ const App = () => (
           <Route path="/team" element={<Team />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/become-mentor" element={<BecomeMentor />} />
+          <Route path="/mentee-quiz" element={<MenteeQuiz />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

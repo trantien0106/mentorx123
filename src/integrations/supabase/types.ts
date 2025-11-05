@@ -151,6 +151,63 @@ export type Database = {
         }
         Relationships: []
       }
+      mentee_quiz_responses: {
+        Row: {
+          additional_info: string | null
+          availability: string
+          budget_range: string
+          completed_at: string
+          created_at: string
+          current_status: string
+          education_level: string
+          experience_level: string
+          field_of_interest: string[]
+          id: string
+          learning_goals: string[]
+          preferred_learning_style: string
+          preferred_session_format: string
+          specific_topics: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          additional_info?: string | null
+          availability: string
+          budget_range: string
+          completed_at?: string
+          created_at?: string
+          current_status: string
+          education_level: string
+          experience_level: string
+          field_of_interest: string[]
+          id?: string
+          learning_goals: string[]
+          preferred_learning_style: string
+          preferred_session_format: string
+          specific_topics?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          additional_info?: string | null
+          availability?: string
+          budget_range?: string
+          completed_at?: string
+          created_at?: string
+          current_status?: string
+          education_level?: string
+          experience_level?: string
+          field_of_interest?: string[]
+          id?: string
+          learning_goals?: string[]
+          preferred_learning_style?: string
+          preferred_session_format?: string
+          specific_topics?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       mentor_applications: {
         Row: {
           bio: string
