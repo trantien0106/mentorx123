@@ -11,8 +11,12 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
+import { Calendar } from "@/components/ui/calendar";
+import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { CheckCircle, Loader2 } from "lucide-react";
+import { format } from "date-fns";
+import { vi } from "date-fns/locale";
 
 interface BookingDialogProps {
   open: boolean;
@@ -49,19 +53,38 @@ export const BookingDialog = ({
 }: BookingDialogProps) => {
   const [step, setStep] = useState(1);
   const [packageType, setPackageType] = useState<"1_session" | "5_sessions" | "10_sessions">("1_session");
+  const [selectedDates, setSelectedDates] = useState<Date[]>([]);
   const [quizAnswers, setQuizAnswers] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
 
   const packages = {
     "1_session": { sessions: 1, discount: 0, price: basePrice },
-    "5_sessions": { sessions: 5, discount: 10, price: basePrice * 5 * 0.90 },
-    "10_sessions": { sessions: 10, discount: 20, price: basePrice * 10 * 0.80 },
+    "5_sessions": { sessions: 5, discount: 5, price: basePrice * 5 * 0.95 },
+    "10_sessions": { sessions: 10, discount: 10, price: basePrice * 10 * 0.90 },
   };
 
   const selectedPackage = packages[packageType];
 
   const handleQuizAnswer = (questionId: string, answer: string) => {
     setQuizAnswers((prev) => ({ ...prev, [questionId]: answer }));
+  };
+
+  const handleDateSelect = (date: Date | undefined) => {
+    if (!date) return;
+    
+    const dateExists = selectedDates.some(
+      (d) => d.toDateString() === date.toDateString()
+    );
+
+    if (dateExists) {
+      setSelectedDates(selectedDates.filter((d) => d.toDateString() !== date.toDateString()));
+    } else {
+      if (selectedDates.length < selectedPackage.sessions) {
+        setSelectedDates([...selectedDates, date]);
+      } else {
+        toast.error(`Bạn chỉ có thể chọn ${selectedPackage.sessions} buổi`);
+      }
+    }
   };
 
   const handleBooking = async () => {
@@ -83,6 +106,7 @@ export const BookingDialog = ({
         package_type: packageType,
         total_price: selectedPackage.price,
         quiz_responses: quizAnswers,
+        session_dates: selectedDates.map((d) => d.toISOString()),
       });
 
       if (error) throw error;
@@ -90,6 +114,7 @@ export const BookingDialog = ({
       toast.success("Đặt lịch thành công! Mentor sẽ liên hệ bạn sớm.");
       onOpenChange(false);
       setStep(1);
+      setSelectedDates([]);
       setQuizAnswers({});
     } catch (error: any) {
       toast.error(error.message || "Đặt lịch thất bại");
@@ -100,6 +125,9 @@ export const BookingDialog = ({
 
   const canProceed = () => {
     if (step === 2) {
+      return selectedDates.length === selectedPackage.sessions;
+    }
+    if (step === 3) {
       return quizQuestions.every((q) => quizAnswers[q.id]?.trim());
     }
     return true;
@@ -111,7 +139,9 @@ export const BookingDialog = ({
         <DialogHeader>
           <DialogTitle>Đặt lịch với {mentorName}</DialogTitle>
           <DialogDescription>
-            {step === 1 ? "Chọn gói học phù hợp" : "Trả lời câu hỏi để mentor hiểu rõ hơn về bạn"}
+            {step === 1 && "Chọn gói học phù hợp"}
+            {step === 2 && "Chọn lịch rảnh để học"}
+            {step === 3 && "Trả lời câu hỏi để mentor hiểu rõ hơn về bạn"}
           </DialogDescription>
         </DialogHeader>
 
@@ -165,6 +195,49 @@ export const BookingDialog = ({
 
         {step === 2 && (
           <div className="space-y-6">
+            <div className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                Chọn {selectedPackage.sessions} ngày bạn muốn học ({selectedDates.length}/{selectedPackage.sessions} đã chọn)
+              </p>
+              <Calendar
+                mode="single"
+                selected={selectedDates[selectedDates.length - 1]}
+                onSelect={handleDateSelect}
+                disabled={(date) => date < new Date()}
+                locale={vi}
+                className="rounded-md border"
+              />
+              {selectedDates.length > 0 && (
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Các ngày đã chọn:</Label>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedDates.map((date, idx) => (
+                      <Badge key={idx} variant="secondary" className="text-xs">
+                        {format(date, "dd/MM/yyyy", { locale: vi })}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="flex gap-3">
+              <Button variant="outline" onClick={() => setStep(1)} className="flex-1">
+                Quay lại
+              </Button>
+              <Button
+                onClick={() => setStep(3)}
+                disabled={!canProceed()}
+                className="flex-1"
+              >
+                Tiếp tục
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {step === 3 && (
+          <div className="space-y-6">
             {quizQuestions.map((q) => (
               <div key={q.id} className="space-y-2">
                 <Label className="text-base">{q.question}</Label>
@@ -178,7 +251,7 @@ export const BookingDialog = ({
             ))}
 
             <div className="flex gap-3">
-              <Button variant="outline" onClick={() => setStep(1)} className="flex-1">
+              <Button variant="outline" onClick={() => setStep(2)} className="flex-1">
                 Quay lại
               </Button>
               <Button
@@ -196,11 +269,3 @@ export const BookingDialog = ({
     </Dialog>
   );
 };
-
-function Badge({ children, className }: { children: React.ReactNode; className?: string }) {
-  return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${className}`}>
-      {children}
-    </span>
-  );
-}

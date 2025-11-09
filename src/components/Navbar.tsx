@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, X, LogOut, MessageCircle } from "lucide-react";
+import { Menu, X, LogOut, MessageCircle, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { useTheme } from "@/components/ThemeProvider";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
   const navigate = useNavigate();
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -69,6 +71,15 @@ const Navbar = () => {
           </div>
           
           <div className="hidden md:flex items-center gap-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            >
+              <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <span className="sr-only">Chuyển chế độ</span>
+            </Button>
             {user ? (
               <>
                 <span className="text-sm text-muted-foreground">
@@ -154,6 +165,18 @@ const Navbar = () => {
               </Link>
             )}
             <div className="flex flex-col gap-2 pt-4 border-t">
+              <Button
+                variant="ghost"
+                className="w-full justify-start"
+                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              >
+                {theme === "light" ? (
+                  <Moon className="w-4 h-4 mr-2" />
+                ) : (
+                  <Sun className="w-4 h-4 mr-2" />
+                )}
+                {theme === "light" ? "Chế độ tối" : "Chế độ sáng"}
+              </Button>
               {user ? (
                 <>
                   <span className="text-sm text-muted-foreground py-2">
